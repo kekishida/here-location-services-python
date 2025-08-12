@@ -432,7 +432,7 @@ class LS:
 
     def solve_tour_planning(
         self,
-        configuration: Configuration,
+        configuration: configuration,
         fleet: Fleet,
         plan: Plan,
         objectives: Optional[Objectives] = None, 
