@@ -13,7 +13,7 @@ from typing import Dict, List, Optional, Tuple, Union
 from geojson import LineString, Point
 
 from here_location_services.config.routing_config import Scooter, Via
-from here_location_services.config.tour_planning_config import Fleet, Plan
+from here_location_services.config.tour_planning_config import Fleet, Plan, Configuration,Objectives
 from here_location_services.platform.apis.aaa_oauth2_api import AAAOauth2Api
 from here_location_services.platform.auth import Auth
 from here_location_services.platform.credentials import PlatformCredentials
@@ -432,7 +432,7 @@ class LS:
 
     def solve_tour_planning(
         self,
-        configuration: configuration,
+        configuration: Configuration,
         fleet: Fleet,
         plan: Plan,
         objectives: Optional[Objectives] = None, 
