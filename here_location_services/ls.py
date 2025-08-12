@@ -432,25 +432,16 @@ class LS:
 
     def solve_tour_planning(
         self,
+        configuration: Configuration,
         fleet: Fleet,
         plan: Plan,
-        id: Optional[str] = None,
-        optimization_traffic: Optional[str] = None,
-        optimization_waiting_time: Optional[Dict] = None,
+        objectives: Optional[Objectives] = None, 
         is_async: Optional[bool] = False,
     ) -> TourPlanningResponse:
         """Requests profile-aware routing data, creates a Vehicle Routing Problem and solves it.
 
         :param fleet: A fleet represented by various vehicle types for serving jobs.
         :param plan: Represents the list of jobs to be served.
-        :param id: A unique identifier of an entity. Avoid referencing any confidential or
-            personal information as part of the Id.
-        :param optimization_traffic: "liveOrHistorical" "historicalOnly" "automatic"
-            Specifies what kind of traffic information should be considered for routing
-        :param optimization_waiting_time: Configures departure time optimization which tries to
-            adapt the starting time of the tour in order to reduce waiting time as a consequence
-            of a vehicle arriving at a stop before the starting time of the time window defined
-            for serving the job.
         :param is_async: Solves the problem Asynchronously
         :raises ApiError: If
         :return: :class:`TourPlanningResponse` object.
@@ -458,11 +449,10 @@ class LS:
 
         if is_async is True:
             resp = self.tour_planning_api.solve_tour_planning(
+                configuration=configuration,
                 fleet=fleet,
                 plan=plan,
-                id=id,
-                optimization_traffic=optimization_traffic,
-                optimization_waiting_time=optimization_waiting_time,
+                objectives=objectives,
                 is_async=is_async,
             )
             status_url = resp.json()["href"]
@@ -481,11 +471,10 @@ class LS:
             return response
         else:
             resp = self.tour_planning_api.solve_tour_planning(
+                configuration=configuration,
                 fleet=fleet,
                 plan=plan,
-                id=id,
-                optimization_traffic=optimization_traffic,
-                optimization_waiting_time=optimization_waiting_time,
+                objectives=objectives,
                 is_async=is_async,
             )
             response = TourPlanningResponse.new(resp.json())
